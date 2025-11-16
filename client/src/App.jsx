@@ -1,46 +1,21 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import Layout from './components/Layout';
-import ProtectedRoute from './components/ProtectedRoute';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import PostView from './pages/PostView';
 import PostForm from './pages/PostForm';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import { AppProvider } from './context/AppContext';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/posts/:id" element={<PostView />} />
-            <Route
-              path="/posts/create"
-              element={
-                <ProtectedRoute>
-                  <PostForm />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/posts/:id/edit"
-              element={
-                <ProtectedRoute>
-                  <PostForm />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        </Layout>
-      </Router>
-    </AuthProvider>
+    <AppProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/posts/:id" element={<PostView />} />
+          <Route path="/create" element={<PostForm />} />
+        </Routes>
+      </BrowserRouter>
+    </AppProvider>
   );
 }
 
 export default App;
-
